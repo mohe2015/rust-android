@@ -46,12 +46,16 @@
         base64 -d ${base64} > $out
       '';
 
-      packages.x86_64-linux.apk = pkgs.runCommand "result.apk" {} ''
+      packages.x86_64-linux.apk = pkgs.runCommand "result.apk" {
+        nativeBuildInputs = [ pkgs.jdk ];
+      } ''
           APK_SOURCE=$(mktemp -d)
+          CLASSES=$(mktemp -d)
           APK_DESTINATION=$(mktemp --suffix .zip)
           rm "$APK_DESTINATION"
 
-          #${pkgs.jdk}/bin/javac ${./src/de/selfmade4u/rust/MainActivity.java}
+          ${pkgs.jdk}/bin/javac -d "$CLASSES" -classpath ${packages.x86_64-linux.android-jar} ${./src/de/selfmade4u/rust}/*.java
+          ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/d8 $CLASSES/*.class --output "$APK_SOURCE"
 
           ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/aapt2 link --output-to-dir -o "$APK_SOURCE" -I ${packages.x86_64-linux.android-jar} --manifest ${./AndroidManifest.xml}
 
