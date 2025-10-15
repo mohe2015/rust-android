@@ -1,0 +1,1 @@
+/nix/store/030328pg4nh24b33cja14h347gxxzy2j-androidsdk

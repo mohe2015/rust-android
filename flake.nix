@@ -69,8 +69,9 @@
         name = "build-apk";
         runtimeInputs = [ pkgs.jdk8 ];
         text = ''
-          ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/apksigner sign --v1-signing-enabled --v2-signing-enabled --align-file-size --verity-enabled --verbose --ks my-release-key.jks --out result.apk ${packages.x86_64-linux.apk}
-          ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/apksigner verify -v -v4-signature-file result.apk.idsig result.apk
+          ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/apksigner sign --verbose --v1-signing-enabled --v2-signing-enabled --align-file-size --verity-enabled --verbose --ks my-release-key.jks --out result.apk ${packages.x86_64-linux.apk}
+          ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/apksigner verify -v --print-certs -v4-signature-file result.apk.idsig result.apk
+          ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/zipalign -c 4 result.apk
           cp ${packages.x86_64-linux.apk} result.apk
         '';
       };
