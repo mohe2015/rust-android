@@ -37,3 +37,7 @@ nix repl nixpkgs
 ```
 
 https://github.com/nix-community/robotnix
+
+https://source.android.com/docs/security/features/apksigning/v4
+
+https://source.android.com/docs/security/features/apksigning

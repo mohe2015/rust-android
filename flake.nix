@@ -55,7 +55,7 @@
 
           (cd "$APK_SOURCE" && ${pkgs.zip}/bin/zip -r "$APK_DESTINATION" .)
           ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/zipalign -v -p 4 "$APK_DESTINATION" $out
-      '';
+      ''; # maybe the nix build does evil stuff to the apk?
 
       packages.x86_64-linux.setup-signing-key = pkgs.writeShellApplication {
         name = "setup-signing-key";
@@ -69,7 +69,7 @@
         name = "build-apk";
         runtimeInputs = [ pkgs.jdk8 ];
         text = ''
-          ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/apksigner sign --verbose --ks my-release-key.jks --out result.apk ${packages.x86_64-linux.apk}
+          ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/apksigner sign --v1-signing-enabled --v2-signing-enabled --align-file-size --verity-enabled --verbose --ks my-release-key.jks --out result.apk ${packages.x86_64-linux.apk}
           ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/apksigner verify -v -v4-signature-file result.apk.idsig result.apk
           cp ${packages.x86_64-linux.apk} result.apk
         '';
