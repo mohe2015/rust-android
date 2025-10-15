@@ -67,6 +67,7 @@
       # nix run .#build-apk
       packages.x86_64-linux.build-apk = nixpkgs.legacyPackages.x86_64-linux.writeShellApplication {
         name = "build-apk";
+        runtimeInputs = [ pkgs.jdk8 ];
         text = ''
           ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/apksigner sign --verbose --ks my-release-key.jks --out result.apk ${packages.x86_64-linux.apk}
           ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/apksigner verify -v -v4-signature-file result.apk.idsig result.apk
