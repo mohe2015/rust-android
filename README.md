@@ -35,3 +35,5 @@ https://android.googlesource.com/platform/prebuilts/sdk/+/refs/heads/android16-r
 ```
 nix repl nixpkgs
 ```
+
+https://github.com/nix-community/robotnix

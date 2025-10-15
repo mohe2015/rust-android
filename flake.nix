@@ -34,6 +34,7 @@
       packages.x86_64-linux.default = self.packages.x86_64-linux.hello;
 
       packages.x86_64-linux.buildTools = (pkgs.androidenv.composeAndroidPackages {
+        
       }).androidsdk;
 
       # ~/Android/Sdk/platforms/android-36/android.jar
@@ -53,7 +54,7 @@
           ${pkgs.aapt}/bin/aapt2 link --output-to-dir -o "$APK_SOURCE" -I ${packages.x86_64-linux.android-jar} --manifest ${./AndroidManifest.xml}
 
           (cd "$APK_SOURCE" && ${pkgs.zip}/bin/zip -r "$APK_DESTINATION" .)
-          ${packages.x86_64-linux.buildTools}/bin/zipalign -v -p 4 "$APK_DESTINATION" $out
+          ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/zipalign -v -p 4 "$APK_DESTINATION" $out
       '';
 
       # nix run .#build-apk
