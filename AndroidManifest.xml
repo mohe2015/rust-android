@@ -1,0 +1,6 @@
+<manifest>
+    <application>
+        <activity android:name="de.selfmade4u.MainActivity">
+        </activity>
+    </application>
+</manifest>
