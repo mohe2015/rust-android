@@ -68,7 +68,7 @@
       packages.x86_64-linux.build-apk = nixpkgs.legacyPackages.x86_64-linux.writeShellApplication {
         name = "build-apk";
         text = ''
-          ${pkgs.apksigner}/bin/apksigner sign --ks my-release-key.jks --out result.apk ${packages.x86_64-linux.apk}
+          ${pkgs.apksigner}/bin/apksigner sign --verbose --ks my-release-key.jks --out result.apk ${packages.x86_64-linux.apk}
           ${pkgs.apksigner}/bin/apksigner verify -v -v4-signature-file result.apk.idsig result.apk
           cp ${packages.x86_64-linux.apk} result.apk
         '';
