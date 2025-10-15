@@ -51,6 +51,8 @@
           APK_DESTINATION=$(mktemp --suffix .zip)
           rm "$APK_DESTINATION"
 
+          ${pkgs.jdk}/bin/javac ${./src/de/selfmade4u/rust/MainActivity.java}
+
           ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/aapt2 link --output-to-dir -o "$APK_SOURCE" -I ${packages.x86_64-linux.android-jar} --manifest ${./AndroidManifest.xml}
 
           (cd "$APK_SOURCE" && ${pkgs.zip}/bin/zip -r "$APK_DESTINATION" .)
