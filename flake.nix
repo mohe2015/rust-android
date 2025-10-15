@@ -60,7 +60,7 @@
       packages.x86_64-linux.setup-signing-key = pkgs.writeShellApplication {
         name = "setup-signing-key";
         text = ''
-          ${pkgs.jdk8}/bin/keytool -genkey -v -keystore my-release-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias my-alias
+          ${pkgs.jdk}/bin/keytool -keyalg RSA -genkeypair -alias androiddebugkey -keypass android -keystore debug.keystore -storepass android -dname "CN=Android Debug,O=Android,C=US" -validity 9999 -deststoretype pkcs12
         '';
       };
 
@@ -69,7 +69,7 @@
         name = "build-apk";
         runtimeInputs = [ pkgs.jdk8 ];
         text = ''
-          ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/apksigner sign --verbose --v1-signing-enabled --v2-signing-enabled --align-file-size --verity-enabled --verbose --ks my-release-key.jks --out result.apk ${packages.x86_64-linux.apk}
+          ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/apksigner sign --verbose --v1-signing-enabled true --v2-signing-enabled true --align-file-size --verity-enabled --verbose --ks debug.keystore --ks-pass pass:android --out result.apk ${packages.x86_64-linux.apk}
           ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/apksigner verify -v --print-certs -v4-signature-file result.apk.idsig result.apk
           ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/zipalign -c 4 result.apk
           cp ${packages.x86_64-linux.apk} result.apk
