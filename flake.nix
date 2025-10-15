@@ -81,6 +81,7 @@
         '';
       };
 
+      # https://github.com/patrickfav/uber-apk-signer/tree/v1.3.0 signs correctly so we messed something up
       packages.x86_64-linux.install-apk = pkgs.writeShellApplication {
         name = "install-apk";
         text = ''

@@ -41,3 +41,5 @@ https://github.com/nix-community/robotnix
 https://source.android.com/docs/security/features/apksigning/v4
 
 https://source.android.com/docs/security/features/apksigning
+
+strace -f -e execve,execveat ./gradlew --no-daemon clean assembleDebug |& tee test
