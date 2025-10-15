@@ -54,10 +54,8 @@
           APK_DESTINATION=$(mktemp --suffix .zip)
           rm "$APK_DESTINATION"
 
-          ${pkgs.jdk}/bin/javac -d "$CLASSES" -classpath ${packages.x86_64-linux.android-jar} ${./src/de/selfmade4u/rust}/*.java ${./src/de/selfmade4u/rust}/**/*.java
-          ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/d8 $CLASSES/de/selfmade4u/rust/MainActivity.class
-          ls -R $APK_SOURCE
-
+          ${pkgs.jdk8}/bin/javac -d "$CLASSES" -classpath ${packages.x86_64-linux.android-jar} ${./src/de/selfmade4u/rust}/*.java ${./src/de/selfmade4u/rust}/**/*.java
+          ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/d8 --output $APK_SOURCE --lib ${packages.x86_64-linux.android-jar} $CLASSES/de/selfmade4u/rust/MainActivity.class
 
           ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/aapt2 link --output-to-dir -o "$APK_SOURCE" -I ${packages.x86_64-linux.android-jar} --manifest ${./AndroidManifest.xml}
 
