@@ -1,4 +1,7 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="de.selfmade4u.rust">
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="de.selfmade4u.rust" android:versionCode="1"
+    android:versionName="1.0">
+    <uses-sdk android:minSdkVersion="29" android:targetSdkVersion="36" />
     <application>
         <activity android:name="de.selfmade4u.rust.MainActivity">
         </activity>
