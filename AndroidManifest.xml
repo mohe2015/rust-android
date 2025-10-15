@@ -1,6 +1,6 @@
-<manifest>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="de.selfmade4u.rust">
     <application>
-        <activity android:name="de.selfmade4u.MainActivity">
+        <activity android:name="de.selfmade4u.rust.MainActivity">
         </activity>
     </application>
 </manifest>

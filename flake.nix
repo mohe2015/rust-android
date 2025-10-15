@@ -25,7 +25,6 @@
       '';
 
       packages.x86_64-linux.apk = pkgs.runCommand "result.apk" {} ''
-          set -ex
           APK_SOURCE=$(mktemp -d)
           APK_DESTINATION=$(mktemp --suffix .zip)
           rm "$APK_DESTINATION"
