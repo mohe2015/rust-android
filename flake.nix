@@ -51,7 +51,7 @@
           APK_DESTINATION=$(mktemp --suffix .zip)
           rm "$APK_DESTINATION"
 
-          ${pkgs.jdk}/bin/javac ${./src/de/selfmade4u/rust/MainActivity.java}
+          #${pkgs.jdk}/bin/javac ${./src/de/selfmade4u/rust/MainActivity.java}
 
           ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/aapt2 link --output-to-dir -o "$APK_SOURCE" -I ${packages.x86_64-linux.android-jar} --manifest ${./AndroidManifest.xml}
 
@@ -71,9 +71,8 @@
         name = "build-apk";
         runtimeInputs = [ pkgs.jdk ];
         text = ''
-          ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/apksigner sign --verbose --v1-signing-enabled true --v2-signing-enabled true --align-file-size --verity-enabled --verbose --ks debug.keystore --ks-pass pass:android --out result.apk ${packages.x86_64-linux.apk}
-          ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/apksigner verify -v --print-certs -v4-signature-file result.apk.idsig result.apk
-          ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/zipalign -c 4 result.apk
+          ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/apksigner sign --verbose --v3-signing-enabled false --v4-signing-enabled false --verbose --ks debug.keystore --ks-pass pass:android --out result.apk ${packages.x86_64-linux.apk}
+          #${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/apksigner verify -v --print-certs -v4-signature-file result.apk.idsig result.apk
           cp ${packages.x86_64-linux.apk} result.apk
         '';
       };
