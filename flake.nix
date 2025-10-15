@@ -23,6 +23,9 @@
           APK_SOURCE=$(mktemp -d)
           APK_DESTINATION=$(mktemp --suffix .zip)
           rm "$APK_DESTINATION"
+
+          ${pkgs.aapt}/bin/aapt2 link --output-to-dir -o "$APK_SOURCE" --manifest ${./AndroidManifest.xml}
+
           (cd "$APK_SOURCE" && ${pkgs.zip}/bin/zip -r "$APK_DESTINATION" .)
           cp "$APK_DESTINATION" result.apk
         '';

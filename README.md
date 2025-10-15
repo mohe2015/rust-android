@@ -2,6 +2,8 @@
 
 ## Interesting stuff
 
+https://developer.android.com/tools/aapt2
+
 https://developer.android.com/tools/d8
 
 https://developer.android.com/tools/apksigner
