@@ -31,3 +31,7 @@ https://android.googlesource.com/platform/prebuilts/sdk/+/refs/heads/android16-r
 search for prebuilts/sdk
 
 https://android.googlesource.com/platform/prebuilts/sdk/+/refs/heads/android16-release
+
+```
+nix repl nixpkgs
+```
