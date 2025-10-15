@@ -54,7 +54,7 @@
           ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/aapt2 link --output-to-dir -o "$APK_SOURCE" -I ${packages.x86_64-linux.android-jar} --manifest ${./AndroidManifest.xml}
 
           (cd "$APK_SOURCE" && ${pkgs.zip}/bin/zip -r "$APK_DESTINATION" .)
-          ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/zipalign -v -p 4 "$APK_DESTINATION" $out
+          ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/zipalign -p -f -v 4 "$APK_DESTINATION" $out
       ''; # maybe the nix build does evil stuff to the apk?
 
       packages.x86_64-linux.setup-signing-key = pkgs.writeShellApplication {
@@ -67,7 +67,7 @@
       # nix run .#build-apk
       packages.x86_64-linux.build-apk = nixpkgs.legacyPackages.x86_64-linux.writeShellApplication {
         name = "build-apk";
-        runtimeInputs = [ pkgs.jdk8 ];
+        runtimeInputs = [ pkgs.jdk ];
         text = ''
           ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/apksigner sign --verbose --v1-signing-enabled true --v2-signing-enabled true --align-file-size --verity-enabled --verbose --ks debug.keystore --ks-pass pass:android --out result.apk ${packages.x86_64-linux.apk}
           ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/apksigner verify -v --print-certs -v4-signature-file result.apk.idsig result.apk
