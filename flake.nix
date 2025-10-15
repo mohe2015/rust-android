@@ -55,7 +55,7 @@
           rm "$APK_DESTINATION"
 
           ${pkgs.jdk}/bin/javac -d "$CLASSES" -classpath ${packages.x86_64-linux.android-jar} ${./src/de/selfmade4u/rust}/*.java ${./src/de/selfmade4u/rust}/**/*.java
-          ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/d8 --output "$APK_SOURCE" $CLASSES/*.class $CLASSES/**/*.class
+          ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/d8 $CLASSES/de/selfmade4u/rust/MainActivity.class
           ls -R $APK_SOURCE
 
 
