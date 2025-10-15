@@ -51,7 +51,7 @@
           APK_DESTINATION=$(mktemp --suffix .zip)
           rm "$APK_DESTINATION"
 
-          ${pkgs.aapt}/bin/aapt2 link --output-to-dir -o "$APK_SOURCE" -I ${packages.x86_64-linux.android-jar} --manifest ${./AndroidManifest.xml}
+          ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/aapt2 link --output-to-dir -o "$APK_SOURCE" -I ${packages.x86_64-linux.android-jar} --manifest ${./AndroidManifest.xml}
 
           (cd "$APK_SOURCE" && ${pkgs.zip}/bin/zip -r "$APK_DESTINATION" .)
           ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/zipalign -v -p 4 "$APK_DESTINATION" $out
@@ -60,7 +60,7 @@
       packages.x86_64-linux.setup-signing-key = pkgs.writeShellApplication {
         name = "setup-signing-key";
         text = ''
-          ${pkgs.jdk}/bin/keytool -genkey -v -keystore my-release-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias my-alias
+          ${pkgs.jdk8}/bin/keytool -genkey -v -keystore my-release-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias my-alias
         '';
       };
 
@@ -68,8 +68,8 @@
       packages.x86_64-linux.build-apk = nixpkgs.legacyPackages.x86_64-linux.writeShellApplication {
         name = "build-apk";
         text = ''
-          ${pkgs.apksigner}/bin/apksigner sign --verbose --ks my-release-key.jks --out result.apk ${packages.x86_64-linux.apk}
-          ${pkgs.apksigner}/bin/apksigner verify -v -v4-signature-file result.apk.idsig result.apk
+          ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/apksigner sign --verbose --ks my-release-key.jks --out result.apk ${packages.x86_64-linux.apk}
+          ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/apksigner verify -v -v4-signature-file result.apk.idsig result.apk
           cp ${packages.x86_64-linux.apk} result.apk
         '';
       };
