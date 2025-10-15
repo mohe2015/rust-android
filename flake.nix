@@ -57,11 +57,17 @@
           ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/zipalign -v -p 4 "$APK_DESTINATION" $out
       '';
 
+      packages.x86_64-linux.setup-signing-key = pkgs.writeShellApplication {
+        name = "setup-signing-key";
+        text = ''
+          ${pkgs.jdk}/bin/keytool -genkey -v -keystore my-release-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias my-alias
+        '';
+      };
+
       # nix run .#build-apk
       packages.x86_64-linux.build-apk = nixpkgs.legacyPackages.x86_64-linux.writeShellApplication {
         name = "build-apk";
         text = ''
-          keytool -genkey -v -keystore my-release-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias my-alias
           ${pkgs.apksigner}/bin/apksigner sign --ks my-release-key.jks --out my-app-release.apk my-app-unsigned-aligned.apk
           ${pkgs.apksigner}/bin/apksigner verify my-app-release.apk
           cp ${packages.x86_64-linux.apk} result.apk
