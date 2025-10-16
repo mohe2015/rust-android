@@ -90,7 +90,7 @@
         '';
       };
 
-      devShells.default = pkgs.mkShell {
+      devShells.x86_64-linux.default = pkgs.mkShell {
 	packages = [
 		pkgs.jdk
 	];
