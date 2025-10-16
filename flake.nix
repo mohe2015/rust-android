@@ -89,5 +89,11 @@
           ${packages.x86_64-linux.buildTools}/bin/adb install result.apk
         '';
       };
+
+      devShells.default = pkgs.mkShell {
+	packages = [
+		pkgs.jdk
+	];
+      };
     };
 }
