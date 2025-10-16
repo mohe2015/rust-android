@@ -8,6 +8,9 @@ public class MainActivity extends android.app.Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(new Button(getApplicationContext()));
+        Button button = new Button(getApplicationContext());
+        button.setText("Hello world");
+
+        setContentView(button);
     }
 }
