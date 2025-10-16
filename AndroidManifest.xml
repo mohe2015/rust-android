@@ -1,11 +1,11 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:compileSdkVersion="36"
-    android:compileSdkVersionCodename="16" package="com.example.myapplication.android"
-    platformBuildVersionCode="36" platformBuildVersionName="16">
-    <application android:allowBackup="false"
-        android:debuggable="true" android:extractNativeLibs="false" android:supportsRtl="true"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="de.selfmade4u.rust">
+    <uses-sdk android:minSdkVersion="29"
+          android:targetSdkVersion="36" />
+    <application 
+        android:debuggable="true" 
        >
         <activity android:exported="true"
-            android:name="com.example.myapplication.android.MainActivity">
+            android:name="de.selfmade4u.rust.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
