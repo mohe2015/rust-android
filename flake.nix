@@ -57,12 +57,11 @@
           ${pkgs.jdk8}/bin/javac -d "$CLASSES" -classpath ${packages.x86_64-linux.android-jar} ${./src/de/selfmade4u/rust}/*.java ${./src/de/selfmade4u/rust}/**/*.java
           ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/d8 --output $APK_SOURCE --lib ${packages.x86_64-linux.android-jar} $CLASSES/de/selfmade4u/rust/MainActivity.class
 
-          ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/aapt2 link --output-to-dir -o "$APK_SOURCE" -I ${packages.x86_64-linux.android-jar} --manifest ${./AndroidManifest.xml}
+          ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/aapt2 link -o "$APK_DESTINATION" -I ${packages.x86_64-linux.android-jar} --manifest ${./AndroidManifest.xml}
 
-          (cd "$APK_SOURCE" && ${pkgs.zip}/bin/zip -r "$APK_DESTINATION" .)
-          ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/zipalign -c 4 "$APK_DESTINATION"
-          ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/zipalign -p -v 4 "$APK_DESTINATION" $out
-          ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/zipalign -c 4 $out
+          (cd "$APK_SOURCE" && ${pkgs.zip}/bin/zip -r "$APK_DESTINATION" classes.dex)
+
+          ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/zipalign -v -P 16 4 "$APK_DESTINATION" $out
       ''; # maybe the nix build does evil stuff to the apk?
 
       packages.x86_64-linux.setup-signing-key = pkgs.writeShellApplication {
