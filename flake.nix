@@ -76,8 +76,8 @@
         name = "build-apk";
         runtimeInputs = [ pkgs.jdk ];
         text = ''
-          ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/apksigner sign --verbose --ks debug.keystore --ks-key-alias androiddebugkey --ks-pass pass:android --key-pass pass:android --out result.apk --v4-signing-enabled ${packages.x86_64-linux.apk}
-          ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/apksigner verify -v4-signature-file result.apk.idsig result.apk
+          ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/apksigner sign --verbose --ks debug.keystore --ks-key-alias androiddebugkey --ks-pass pass:android --key-pass pass:android --out result.apk ${packages.x86_64-linux.apk}
+          ${packages.x86_64-linux.buildTools}/libexec/android-sdk/build-tools/36.0.0/apksigner verify --verbose -v4-signature-file result.apk.idsig result.apk
         '';
       };
 
