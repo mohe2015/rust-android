@@ -43,3 +43,20 @@ https://source.android.com/docs/security/features/apksigning/v4
 https://source.android.com/docs/security/features/apksigning
 
 strace -f -e execve,execveat ./gradlew --no-daemon clean assembleDebug |& tee test
+
+https://developer.android.com/reference
+
+https://developer.android.com/reference/classes
+
+https://developer.android.com/reference/android/widget/GridLayout
+
+https://developer.android.com/reference/android/text/Layout
+
+https://developer.android.com/reference/android/widget/LinearLayout
+
+https://developer.android.com/reference/android/widget/RelativeLayout
+
+https://developer.android.com/reference/android/widget/TableLayout
+
+all subclasses of:
+https://developer.android.com/reference/android/view/ViewGroup
