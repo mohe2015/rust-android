@@ -2,10 +2,11 @@
     <uses-sdk android:minSdkVersion="29"
           android:targetSdkVersion="36" />
     <application 
-        android:debuggable="true" 
+        android:debuggable="true" android:hasCode="false"
        >
-        <activity android:exported="true"
-            android:name="de.selfmade4u.rust.MainActivity">
+        <activity android:exported="true" android:name="android.app.NativeActivity">
+            <meta-data android:name="android.app.lib_name"
+                android:value="rust" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

@@ -1,5 +1,9 @@
 # rust-android
 
+```
+cargo build --target aarch64-linux-android
+```
+
 ## Interesting stuff
 
 https://developer.android.com/tools/aapt2

@@ -1,3 +1,8 @@
 result.apk.idsig
 result
 result.apk
+
+
+# Added by cargo
+
+/target

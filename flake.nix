@@ -26,6 +26,8 @@
               "platforms"
               "cmake"
               "cmdline-tools"
+              "android-sdk-ndk"
+              "ndk"
             ];
         };
       };
@@ -39,7 +41,7 @@
 
       packages.x86_64-linux.buildTools =
         (pkgs.androidenv.composeAndroidPackages {
-
+          includeNDK = true;
         }).androidsdk;
 
       # ~/Android/Sdk/platforms/android-36/android.jar
@@ -104,7 +106,7 @@
         name = "run-apk";
         text = ''
           ${packages.x86_64-linux.install-apk.text}
-          ${packages.x86_64-linux.buildTools}/bin/adb shell am start -a android.intent.action.MAIN -n de.selfmade4u.rust/.MainActivity
+          ${packages.x86_64-linux.buildTools}/bin/adb shell am start -a android.intent.action.MAIN -n de.selfmade4u.rust/android.app.NativeActivity
         '';
       };
 
@@ -112,6 +114,11 @@
         packages = [
           pkgs.jdk
         ];
+
+        shellHook = ''
+          export LIBCLANG_PATH="${pkgs.llvmPackages.libclang.lib}/lib"
+          export ANDROID_NDK_ROOT=${packages.x86_64-linux.buildTools}/libexec/android-sdk/ndk/29.0.14206865/
+        '';
       };
     };
 }
